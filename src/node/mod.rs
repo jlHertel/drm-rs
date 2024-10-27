@@ -4,7 +4,7 @@ pub mod constants;
 
 use std::error::Error;
 use std::fmt::{self, Debug, Display, Formatter};
-use std::io;
+use std::{fs, io};
 use std::os::unix::io::AsFd;
 use std::path::{Path, PathBuf};
 
@@ -379,4 +379,22 @@ pub fn dev_path(dev: dev_t, ty: NodeType) -> io::Result<PathBuf> {
             minor(dev)
         ),
     ))
+}
+
+/// Returns a Vector with all DRM Nodes we managed to find. There might be duplicates.
+pub fn drm_get_devices() -> Result<Vec<DrmNode>, io::Error> {
+    let mut devices: Vec<DrmNode> = vec![];
+
+    fs::read_dir("/dev")?
+        .for_each(|entry| {
+            if entry.is_ok() {
+                let device_path = entry.unwrap().path();
+                let node = DrmNode::from_path(device_path);
+                if node.is_ok() {
+                    devices.push(node.unwrap())
+                }
+            }
+        });
+
+    Ok(devices)
 }
