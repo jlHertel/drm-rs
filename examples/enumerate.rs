@@ -1,7 +1,8 @@
-use drm::node;
-
 pub fn main() {
-    let devices = node::drm_get_devices();
+    let devices = drm::node::devices().unwrap();
 
-    println!("{:?}", devices.unwrap());
+    for dev in devices {
+        println!("{:?}", dev);
+    }
+
 }
