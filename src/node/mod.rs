@@ -390,8 +390,8 @@ pub fn drm_get_devices() -> Result<Vec<DrmNode>, io::Error> {
             if entry.is_ok() {
                 let device_path = entry.unwrap().path();
                 let node = DrmNode::from_path(device_path);
-                if node.is_ok() {
-                    devices.push(node.unwrap())
+                if let Ok(node) = node {
+                    devices.push(node)
                 }
             }
         });
