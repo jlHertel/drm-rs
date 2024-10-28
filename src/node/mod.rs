@@ -384,7 +384,6 @@ pub fn dev_path(dev: dev_t, ty: NodeType) -> io::Result<PathBuf> {
 /// Returns an iterator with all DRM Nodes we managed to find. There might be duplicates.
 pub fn devices() -> io::Result<impl Iterator<Item = DrmNode>> {
     let result = fs::read_dir(DRM_DIR_NAME)?
-        .into_iter()
         .filter_map(|entry| entry.ok())
         .filter_map(|entry| DrmNode::from_path(entry.path()).ok());
 
