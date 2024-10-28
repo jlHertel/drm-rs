@@ -387,9 +387,8 @@ pub fn drm_get_devices() -> Result<Vec<DrmNode>, io::Error> {
 
     fs::read_dir("/dev")?
         .for_each(|entry| {
-            if entry.is_ok() {
-                let device_path = entry.unwrap().path();
-                let node = DrmNode::from_path(device_path);
+            if let Ok(entry) = entry {
+                let node = DrmNode::from_path(entry.path());
                 if let Ok(node) = node {
                     devices.push(node)
                 }
