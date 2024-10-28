@@ -383,7 +383,7 @@ pub fn dev_path(dev: dev_t, ty: NodeType) -> io::Result<PathBuf> {
 
 /// Returns a [`Vec`] with all DRM Nodes we managed to find. There might be duplicates.
 pub fn drm_get_devices() -> Result<Vec<DrmNode>, io::Error> {
-    let mut devices: Vec<DrmNode> = vec![];
+    let mut devices = vec![];
 
     fs::read_dir("/dev")?
         .for_each(|entry| {
