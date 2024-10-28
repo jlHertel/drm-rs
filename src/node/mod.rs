@@ -4,9 +4,9 @@ pub mod constants;
 
 use std::error::Error;
 use std::fmt::{self, Debug, Display, Formatter};
-use std::{fs, io};
 use std::os::unix::io::AsFd;
 use std::path::{Path, PathBuf};
+use std::{fs, io};
 
 use rustix::fs::{fstat, major, minor, stat, Dev as dev_t, Stat};
 

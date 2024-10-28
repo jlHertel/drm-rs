@@ -4,5 +4,4 @@ pub fn main() {
     for dev in devices {
         println!("{:?}", dev);
     }
-
 }
